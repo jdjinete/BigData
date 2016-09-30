@@ -1,0 +1,29 @@
+{
+  "name": "BigData",
+  "version": "1.0.0",
+  "description": "![Logo Poli](http://www.poli.edu.co/profiles/university/themes/project_u_base/img/logo.png) ##Integrantes *Los Integrantes del grupo son:     1. Carlos Charris     2. Jesus Jinete     3. Mauricio Florez     4. Alvaro Casallas     5. Diego Meza",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jdjinete/BigData.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/jdjinete/BigData/issues"
+  },
+  "homepage": "https://github.com/jdjinete/BigData#readme",
+  "devDependencies": {
+    "connect-history-api-fallback": "^1.3.0",
+    "gulp": "^3.9.1",
+    "gulp-connect": "^5.0.0",
+    "gulp-inject": "^4.1.0",
+    "gulp-jshint": "^2.0.1",
+    "jshint": "^2.9.3",
+    "wiredep": "^4.0.0"
+  }
+}
