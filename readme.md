@@ -8,7 +8,7 @@
     4. Alvaro Casallas
     5. Diego Meza
     
-##El **stack** ha utilizar en este proyecto sera el siguiente:
+##El ***stack*** ha utilizar en este proyecto sera el siguiente:
 >Base de datos: Firebase
 >
 >FrontEnd: Angular
