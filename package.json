@@ -18,6 +18,8 @@
   },
   "homepage": "https://github.com/jdjinete/BigData#readme",
   "devDependencies": {
+    "@types/angular": "^1.5.16",
+    "@types/angular-material": "^1.1.39",
     "connect-history-api-fallback": "^1.3.0",
     "gulp": "^3.9.1",
     "gulp-connect": "^5.0.0",
