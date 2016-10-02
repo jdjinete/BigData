@@ -1,46 +1,87 @@
 <!DOCTYPE html>
 <html lang="es" ng-app='big'>
+
 <head>
     <meta charset="UTF-8">
-  <!--Css Terceros-->
-  <!-- bower:css -->
-  <!-- endbower -->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!--Css Terceros-->
+    <!-- bower:css -->
+    <link rel="stylesheet" href="vendor/angular-material/angular-material.css" />
+    <!-- endbower -->
 
-  <!--Css Propios-->
-  <!-- build:css css/styles.min.css -->
-  <!-- inject:css -->
-  <link rel="stylesheet" href="styles/style.css">
-  <!-- endinject -->
-  <!-- endbuild -->
+    <!--Css Propios-->
+    <!-- build:css css/styles.min.css -->
+    <!-- inject:css -->
+    <link rel="stylesheet" href="styles/style.css">
+    <!-- endinject -->
+    <!-- endbuild -->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 
     <title>Big Data</title>
+
 </head>
+
 <body>
 
+    <!-- You must add `layout="column"` to your body element for this to work. We manually do this in the js because there aren't any options to add attributes to the body on codepen.-->
+    <div ng-controller="testCtrl" layout="column" layout-fill>
+        <md-toolbar>
+            <div class="md-toolbar-tools">
+                <md-button class="md-icon-button" aria-label="Settings">
+                    <md-icon class="material-icons">menu</md-icon>
+                </md-button>
+                <h2>
+                    <span>Toolbar with Icon Buttons</span>
+                </h2>
+                <span flex=""></span>
+                <md-button class="md-icon-button" aria-label="More">
+                    <md-icon class="material-icon">more_vert</md-icon>
+                </md-button>
+            </div>
+        </md-toolbar>
 
-<div ng-controller="testCtrl">
-  
-{{nombre}}
+        <!-- We use flex to make sure the content fills the available space.
+layout-fill also works but you may end up with issues in firefox/ie if you use it-->
+        <md-content flex>
+            <md-card>
+                <md-card-content>
+                    <h2>You can have a sticky toolbar</h2>
+                    <p>Just put your toolbar outside of md-content. As md-content is meant to be scrollable if you want elements to always show you must put them outside of it.</p>
+                    <p>Try toogling the following checkbox to see that the md-content still fills the remaining page when there is room left over.</p>
+                    <md-checkbox ng-init="lotsOfCards = true" ng-model="lotsOfCards">Show a lot of cards?</md-checkbox>
+                </md-card-content>
+            </md-card>
 
-</div>
+
+            <md-card ng-if="lotsOfCards" ng-repeat="n in [1,2,3,4]">
+                <md-card-content>
+                    <h2 ng-bind-template="Card {{::n}}"></h2>
+                    <p>
+                        <i class="material-icons">adb</i>
+                    </p>
+                </md-card-content>
+            </md-card>
+
+        </md-content>
+    </div>
 
 
+    <!-- Librerias Terceros -->
+    <!-- bower:js -->
+    <script src="vendor/angular/angular.js"></script>
+    <script src="vendor/angular-animate/angular-animate.js"></script>
+    <script src="vendor/angular-aria/angular-aria.js"></script>
+    <script src="vendor/angular-messages/angular-messages.js"></script>
+    <script src="vendor/angular-material/angular-material.js"></script>
+    <!-- endbower -->
 
-
-
-
-    
-<!-- Librerias Terceros -->
-<!-- bower:js -->
-<script src="vendor/angular/angular.min.js"></script>
-<!-- endbower -->
-    
-<!-- Librerias Personales -->
-<!-- build:js js/scripts.min.js -->
-<!-- inject:js -->
-<script src="scripts/app.js"></script>
-<script src="scripts/controllers/controllers.js"></script>
-<!-- endinject -->
-<!-- endbuild -->
+    <!-- Librerias Personales -->
+    <!-- build:js js/scripts.min.js -->
+    <!-- inject:js -->
+    <script src="scripts/app.js"></script>
+    <script src="scripts/controllers/controllers.js"></script>
+    <!-- endinject -->
+    <!-- endbuild -->
 </body>
+
 </html>
