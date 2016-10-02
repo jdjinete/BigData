@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="es" ng-app='big'>
 <head>
     <meta charset="UTF-8">
   <!--Css Terceros-->
@@ -9,17 +9,20 @@
   <!--Css Propios-->
   <!-- build:css css/styles.min.css -->
   <!-- inject:css -->
+  <link rel="stylesheet" href="styles/style.css">
   <!-- endinject -->
   <!-- endbuild -->
 
     <title>Big Data</title>
 </head>
 <body>
-    
 
 
+<div ng-controller="testCtrl">
+  
+{{nombre}}
 
-
+</div>
 
 
 
@@ -29,11 +32,14 @@
     
 <!-- Librerias Terceros -->
 <!-- bower:js -->
+<script src="vendor/angular/angular.min.js"></script>
 <!-- endbower -->
     
 <!-- Librerias Personales -->
 <!-- build:js js/scripts.min.js -->
 <!-- inject:js -->
+<script src="scripts/app.js"></script>
+<script src="scripts/controllers/controllers.js"></script>
 <!-- endinject -->
 <!-- endbuild -->
 </body>
