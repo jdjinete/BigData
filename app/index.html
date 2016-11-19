@@ -29,6 +29,8 @@
 
 <body ng-controller="testCtrl">
 
+{{(datosImpo).length}}
+
 
 <div layout="column" layout-fill>
   <md-toolbar>
@@ -46,18 +48,17 @@
     </div>
   </md-toolbar>
 
-  <!-- We use flex to make sure the content fills the available space.
-  layout-fill also works but you may end up with issues in firefox/ie if you use it-->
+
   <md-content flex>
     <md-content class="md-padding" layout-xs="column" layout="row">
       <div flex-xs="" flex-gt-xs="10" layout="column"></div>
-      <div flex-xs="" flex-gt-xs="75" layout="column">
+      <div flex-xs="" flex-gt-xs="70" layout="column">
 
-        <md-card md-theme="{{ showDarkTheme ? 'dark-orange' : 'default' }}" md-theme-watch="">
+        <md-card>
           <md-card-title>
             <md-card-title-text>
               <span class="md-headline">Exportaciones Motocicletas</span>
-              <span class="md-subhead">Origen</span>
+              <span class="md-headline">País de Origen</span>
             </md-card-title-text>
           </md-card-title>
 
@@ -66,28 +67,52 @@
 
         </md-card>
       </div>
-      <div flex-xs="" flex-gt-xs="10" layout="column">
+      <div flex-xs="" flex-gt-xs="15" layout="column">
 
-        <md-card md-theme="{{ showDarkTheme ? 'dark-blue' : 'default' }}" md-theme-watch="">
+        <md-card>
+          <md-card-header style="background-color: rgb(16,108,200); color: whitesmoke">
+            <span class="md-headline">Tipo Grafica</span>
+          </md-card-header>
+
           <md-card-title>
+
             <md-card-title-text>
-              <span class="md-headline">Año</span>
-              <span class="md-subhead">
-
-          <md-checkbox ng-model="showDarkTheme">2014</md-checkbox>
 
 
-        <md-checkbox ng-model="showDarkTheme">2015</md-checkbox>
+              <md-radio-group ng-model="data.group">
 
+                <md-radio-button value="2014" class="md-primary">Tipo No. 1</md-radio-button>
+                <md-radio-button value="2015">Tipo No. 2</md-radio-button>
+                <md-radio-button value="2016">Tipo No. 3</md-radio-button>
 
-        <md-checkbox ng-model="showDarkTheme">2016</md-checkbox>
+              </md-radio-group>
 
-              </span>
             </md-card-title-text>
           </md-card-title>
         </md-card>
 
+        <md-card>
+          <md-card-header style="background-color: rgb(16,108,200); color: whitesmoke">
+            <span class="md-headline">Año</span>
+          </md-card-header>
+          <md-card-title>
+            <md-card-title-text>
+
+              <md-radio-group ng-model="data.group1">
+
+                <md-radio-button value="2014" class="md-primary">2014</md-radio-button>
+                <md-radio-button value="2015"> 2015</md-radio-button>
+                <md-radio-button value="2016">2016</md-radio-button>
+
+              </md-radio-group>
+
+            </md-card-title-text>
+          </md-card-title>
+        </md-card>
+
+
       </div>
+
     </md-content>
 </div>
 
@@ -96,14 +121,14 @@
 
 <!-- Librerias Terceros -->
 <!-- bower:js -->
+<script src="vendor/jquery/dist/jquery.js"></script>
 <script src="vendor/angular/angular.js"></script>
+<script src="vendor/firebase/firebase.js"></script>
 <script src="vendor/angular-animate/angular-animate.js"></script>
 <script src="vendor/angular-aria/angular-aria.js"></script>
 <script src="vendor/angular-messages/angular-messages.js"></script>
 <script src="vendor/angular-material/angular-material.js"></script>
-<script src="vendor/d3-queue/d3-queue.js"></script>
-<script src="vendor/topojson/topojson.js"></script>
-<script src="vendor/d3/d3.v3.min.js"></script>
+<script src="vendor/angularfire/dist/angularfire.js"></script>
 <!-- endbower -->
 
 <!-- Librerias Personales -->
@@ -111,201 +136,13 @@
 <!-- inject:js -->
 <script src="scripts/app.js"></script>
 <script src="scripts/controllers/controllers.js"></script>
+<script src="scripts/filters/filters.js"></script>
+<script src="scripts/services/services.js"></script>
 <!-- endinject -->
 <!-- endbuild -->
 
 
 <script>
-
-
-  var datos = [{
-    "Aduana": "MEDELLIN",
-    "Cantidad": 96,
-    "CiudadProveedor": "WENLING",
-    "CodigoImportador": 8909133217,
-    "CodigoPartida": 8711900020,
-    "ContinenteCompra": "ASIA",
-    "ContinenteOrigen": "ASIA",
-    "DepartamentoDestino": "ANTIOQUIA",
-    "DepartamentoImportador": "ANTIOQUIA",
-    "DescripcionPartidaArancelaria": "Bicicletas con motor elEctrico",
-    "FechaAceptacion": "06/01/2015",
-    "FletesUSD": 1800,
-    "NitImportador": 890913321,
-    "PaisCompra": "CHINA",
-    "PaisExportador": "CHINA",
-    "PaisProcedencia": "CHINA",
-    "Paisorigen": "CHINA",
-    "PorcentajeArancel": 15,
-    "PorcentajeIVA": 16,
-    "RazonSocialImportador": "PREMAC S.A.S",
-    "Total": 42623000,
-    "TotalArancel": 19142000,
-    "TotalIVA": 23481000,
-    "Valor CIFUSD": 53339.01,
-    "ValorCIFCOP": 1.276114479E8,
-    "ValorFOBCOP": 1.230684534E8,
-    "ValorFOBUSD": 51440.13,
-    "ViaTransporte": "TRANSPORTE MARITIMO",
-    "fila": 1
-  }, {
-    "Aduana": "BUENAVENTURA",
-    "Cantidad": 4,
-    "CiudadProveedor": "MONTEVIDEO",
-    "CodigoImportador": 9004345324,
-    "CodigoPartida": 8711900020,
-    "ContinenteCompra": "AMERICA",
-    "ContinenteOrigen": "ASIA",
-    "DepartamentoDestino": "CALDAS",
-    "DepartamentoImportador": "CALDAS",
-    "DescripcionPartidaArancelaria": "Bicicletas con motor elEctrico",
-    "FechaAceptacion": "07/01/2015",
-    "FletesUSD": 154.24,
-    "NitImportador": 900434532,
-    "PaisCompra": "URUGUAY",
-    "PaisExportador": "URUGUAY",
-    "PaisProcedencia": "TAIWAN",
-    "Paisorigen": "TAIWAN",
-    "PorcentajeArancel": 15,
-    "PorcentajeIVA": 16,
-    "RazonSocialImportador": "SPECIALIZED COLOMBIA S.A.S.",
-    "Total": 5999000,
-    "TotalArancel": 2694000,
-    "TotalIVA": 3305000,
-    "Valor CIFUSD": 7507.57,
-    "ValorCIFCOP": 1.796156092E7,
-    "ValorFOBCOP": 1.755201962E7,
-    "ValorFOBUSD": 7336.39,
-    "ViaTransporte": "TRANSPORTE MARITIMO",
-    "fila": 2
-  }, {
-    "Aduana": "BOGOTA",
-    "Cantidad": 3,
-    "CiudadProveedor": "KWOLOON",
-    "CodigoImportador": 8300753577,
-    "CodigoPartida": 8711900020,
-    "ContinenteCompra": "ASIA",
-    "ContinenteOrigen": "ASIA",
-    "DepartamentoDestino": "BOGOTA",
-    "DepartamentoImportador": "BOGOTA",
-    "DescripcionPartidaArancelaria": "Bicicletas con motor elEctrico",
-    "FechaAceptacion": "06/01/2015",
-    "FletesUSD": 1452.05,
-    "NitImportador": 830075357,
-    "PaisCompra": "CHINA",
-    "PaisExportador": "HONG KONG",
-    "PaisProcedencia": "CHINA",
-    "Paisorigen": "CHINA",
-    "PorcentajeArancel": 15,
-    "PorcentajeIVA": 16,
-    "RazonSocialImportador": "C I JAPAN S A S",
-    "Total": 2438000,
-    "TotalArancel": 1095000,
-    "TotalIVA": 1343000,
-    "Valor CIFUSD": 3051.05,
-    "ValorCIFCOP": 7299515083,
-    "ValorFOBCOP": 3634146.74,
-    "ValorFOBUSD": 1519,
-    "ViaTransporte": "TRANSPORTE AEREO",
-    "fila": 3
-  }, {
-    "Aduana": "BUENAVENTURA",
-    "Cantidad": 115,
-    "CiudadProveedor": "SHENZHEN",
-    "CodigoImportador": 9006413468,
-    "CodigoPartida": 8711900020,
-    "ContinenteCompra": "ASIA",
-    "ContinenteOrigen": "ASIA",
-    "DepartamentoDestino": "BOGOTA",
-    "DepartamentoImportador": "BOGOTA",
-    "DescripcionPartidaArancelaria": "Bicicletas con motor elEctrico",
-    "FechaAceptacion": "09/01/2015",
-    "FletesUSD": 3400,
-    "NitImportador": 900641346,
-    "PaisCompra": "CHINA",
-    "PaisExportador": "CHINA",
-    "PaisProcedencia": "CHINA",
-    "Paisorigen": "CHINA",
-    "PorcentajeArancel": 15,
-    "PorcentajeIVA": 16,
-    "RazonSocialImportador": "GRUPO GITRONIC SAS",
-    "Total": 17239000,
-    "TotalArancel": 7742000,
-    "TotalIVA": 9497000,
-    "Valor CIFUSD": 21572.65,
-    "ValorCIFCOP": 5.161170222E7,
-    "ValorFOBCOP": 4.23585043E7,
-    "ValorFOBUSD": 17705,
-    "ViaTransporte": "TRANSPORTE MARITIMO",
-    "fila": 4
-  }];
-
-  console.log(datos.length);
-
-  var datosMapa = [];
-  var cont = 0;
-
-  datos.forEach((item) => {
-
-    if (datosMapa.length === 0
-    ) {
-      datosMapa.push({nombre: item.PaisExportador, cant: 1})
-    }
-    else {
-      datosMapa.forEach((pais) => {
-        console.log(pais.nombre);
-        if (item.PaisExportador === pais.nombre) {
-          pais.cant = pais.cant + 1;
-          cont = 0;
-        } else {
-          cont = -1;
-        }
-      })
-    }
-    if (cont < 0) {
-      datosMapa.push({nombre: item.PaisExportador, cant: 1})
-    }
-  });
-
-  //  console.log(datosMapa);
-
-  var temp = [];
-  temp.push(['Country', 'Exportador']);
-  datosMapa.forEach((pais) => {
-    temp.push([primeraMayuscula((pais.nombre).toLowerCase()), pais.cant])
-  });
-  console.log(temp);
-
-  function primeraMayuscula(string) {
-    return string.charAt(0).toUpperCase() + string.slice(1);
-  }
-
-  temp.pop();
-
-  google.charts.load('upcoming', {'packages': ['geochart']});
-  google.charts.setOnLoadCallback(drawRegionsMap);
-
-  function drawRegionsMap() {
-
-//    var data = google.visualization.arrayToDataTable([
-//      ['Country', 'Popularity'],
-//      ['Germany', 200],
-//      ['United States', 300],
-//      ['Brazil', 400],
-//      ['Canada', 500],
-//      ['France', 600],
-//      ['RU', 700]
-//    ]);
-
-    var data = google.visualization.arrayToDataTable(temp);
-
-
-    var options = {};
-
-    var chart = new google.visualization.GeoChart(document.getElementById('regions_div'));
-
-    chart.draw(data, options);
-  }
 
 </script>
 
