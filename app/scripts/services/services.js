@@ -18,24 +18,14 @@
         }
 
 
-        // function filtroPorAnio(anio) {
-        //   var deferred = $q.defer();
-        //   var ref = firebase.database().ref();
-        //   // debugger;
-        //   var messagesRef = ref.child("importaciones/");
-        //   var query = messagesRef.orderByChild("Ano").equalTo(anio);
-        //   deferred.resolve($firebaseArray(query));
-        //   return deferred.promise;
-        // }
-
         function filtroPorAnio(anio) {
-
+          // filtrar
+          var deferred = $q.defer();
           var ref = firebase.database().ref();
-          // debugger;
-          var messagesRef = ref.child("importaciones/");
+          var messagesRef = ref.child("importaciones/").limitToFirst(100);
           var query = messagesRef.orderByChild("Ano").equalTo(anio);
-          ;
-          return $firebaseArray(query);
+          deferred.resolve($firebaseArray(query).$loaded());
+          return deferred.promise;
         }
 
 

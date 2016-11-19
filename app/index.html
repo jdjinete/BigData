@@ -79,7 +79,7 @@
             <md-card-title-text>
 
 
-              <md-radio-group ng-model="data.group">
+              <md-radio-group ng-model="data.item">
 
                 <md-radio-button value="2014" class="md-primary">Tipo No. 1</md-radio-button>
                 <md-radio-button value="2015">Tipo No. 2</md-radio-button>
@@ -98,13 +98,15 @@
           <md-card-title>
             <md-card-title-text>
 
-              <md-radio-group ng-model="data.group1">
+              <md-radio-group ng-model="anio">
 
                 <md-radio-button value="2014" class="md-primary">2014</md-radio-button>
                 <md-radio-button value="2015"> 2015</md-radio-button>
                 <md-radio-button value="2016">2016</md-radio-button>
 
               </md-radio-group>
+
+              {{anio}}
 
             </md-card-title-text>
           </md-card-title>
