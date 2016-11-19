@@ -1,21 +1,30 @@
-//File Gulpfile.js
-'use strict'
+// File: Gulpfile.js
+'use strict';
 
 var gulp = require('gulp'),
   connect = require('gulp-connect'),
+  inject = require('gulp-inject'),
+  wiredep = require('wiredep').stream,
   historyApiFallback = require('connect-history-api-fallback');
+
 
 // Servidor web de desarrollo
 gulp.task('server', function() {
   connect.server({
     root: './app',
     hostname: '0.0.0.0',
-    port: 9090,
+    port: 9000,
     livereload: true,
     middleware: function(connect, opt) {
       return [historyApiFallback()];
     }
   });
+});
+
+// Recarga el navegador cuando hay cambios en el HTML
+gulp.task('html', function() {
+  gulp.src(['./app/*.html', './app/views/**/*.html'])
+    .pipe(connect.reload());
 });
 
 // Recarga el navegador cuando hay cambios en el CSS
@@ -51,7 +60,7 @@ gulp.task('inject', function() {
 gulp.task('bower', function() {
   gulp.src('./app/index.html')
     .pipe(wiredep({
-      directory: 'app/lib'
+      directory: 'app/vendor'
     }))
     .pipe(gulp.dest('./app'));
 });
@@ -61,7 +70,7 @@ gulp.task('bower', function() {
 gulp.task('watch', function() {
   gulp.watch(['./app/**/*.html'], ['html']);
   gulp.watch(['./app/styles/**/*.css'], ['css']);
-  gulp.watch(['./app/scripts/**/*.js'], ['js']);
+  gulp.watch(['./app/scripts/**/*.js'], ['js', 'inject']);
   gulp.watch(['bower.json'], ['bower']);
 });
 

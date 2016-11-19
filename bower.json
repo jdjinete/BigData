@@ -1,6 +1,11 @@
 {
-  "name": "BigData",
+  "name": "bigdata",
   "version": "1.0.0",
-  "description": "![Logo Poli](http://www.poli.edu.co/profiles/university/themes/project_u_base/img/logo.png) ##Integrantes *Los Integrantes del grupo son:     1. Carlos Charris     2. Jesus Jinete     3. Mauricio Florez     4. Alvaro Casallas     5. Diego Meza",
-  "dependencies": {}
+  "description": "",
+  "dependencies": {
+    "angular": "^1.5.8",
+    "angular-material": "^1.1.1",
+    "d3-queue": "^3.0.3",
+    "topojson": "^2.1.0"
+  }
 }
