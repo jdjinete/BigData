@@ -30,47 +30,68 @@
 <body ng-controller="testCtrl">
 
 
-<!--<div layout="column" layout-fill>-->
-<!--<md-toolbar>-->
-<!--<div class="md-toolbar-tools">-->
-<!--<md-button class="md-icon-button" aria-label="Settings">-->
-<!--<md-icon class="material-icons">menu</md-icon>-->
-<!--</md-button>-->
-<!--<h2>-->
-<!--<span>Big Data</span>-->
-<!--</h2>-->
-<!--<span flex=""></span>-->
-<!--<md-button class="md-icon-button" aria-label="More">-->
-<!--<md-icon class="material-icons">more_vert</md-icon>-->
-<!--</md-button>-->
-<!--</div>-->
-<!--</md-toolbar>-->
+<div layout="column" layout-fill>
+  <md-toolbar>
+    <div class="md-toolbar-tools">
+      <md-button class="md-icon-button" aria-label="Settings">
+        <md-icon class="material-icons">menu</md-icon>
+      </md-button>
+      <h2>
+        <span>Big Data</span>
+      </h2>
+      <span flex=""></span>
+      <md-button class="md-icon-button" aria-label="More">
+        <md-icon class="material-icons">more_vert</md-icon>
+      </md-button>
+    </div>
+  </md-toolbar>
 
-<!--&lt;!&ndash; We use flex to make sure the content fills the available space.-->
-<!--layout-fill also works but you may end up with issues in firefox/ie if you use it&ndash;&gt;-->
-<!--<md-content flex>-->
-<!--<md-card>-->
-<!--<md-card-content>-->
-<!--<h2> Big Data</h2>-->
-<!--<p>Just put your toolbar outside of md-content. As md-content is meant to be scrollable if you want elements to-->
-<!--always show you must put them outside of it.</p>-->
-<!--<p>Try toogling the following checkbox to see that the md-content still fills the remaining page when there is-->
-<!--room left over.</p>-->
-<!--<md-checkbox ng-init="lotsOfCards = true" ng-model="lotsOfCards">Show a lot of cards?</md-checkbox>-->
-<!--</md-card-content>-->
-<!--</md-card>-->
+  <!-- We use flex to make sure the content fills the available space.
+  layout-fill also works but you may end up with issues in firefox/ie if you use it-->
+  <md-content flex>
+    <md-content class="md-padding" layout-xs="column" layout="row">
+      <div flex-xs="" flex-gt-xs="10" layout="column"></div>
+      <div flex-xs="" flex-gt-xs="75" layout="column">
+
+        <md-card md-theme="{{ showDarkTheme ? 'dark-orange' : 'default' }}" md-theme-watch="">
+          <md-card-title>
+            <md-card-title-text>
+              <span class="md-headline">Exportaciones Motocicletas</span>
+              <span class="md-subhead">Origen</span>
+            </md-card-title-text>
+          </md-card-title>
+
+          <div ng-src="{{imagePath}}" id="regions_div" class="md-card-image" style="height: 500px;"
+               style="background-color: #999999;"></div>
+
+        </md-card>
+      </div>
+      <div flex-xs="" flex-gt-xs="10" layout="column">
+
+        <md-card md-theme="{{ showDarkTheme ? 'dark-blue' : 'default' }}" md-theme-watch="">
+          <md-card-title>
+            <md-card-title-text>
+              <span class="md-headline">Año</span>
+              <span class="md-subhead">
+
+          <md-checkbox ng-model="showDarkTheme">2014</md-checkbox>
 
 
-<!--<md-card ng-if="lotsOfCards" ng-repeat="n in [1,2,3,4,5]">-->
-<!--<md-card-content>-->
-<!--<h2 ng-bind-template="Card {{::n}}"></h2>-->
-<!--<p>Your content</p</md-card-content>-->
-<!--</md-card>-->
+        <md-checkbox ng-model="showDarkTheme">2015</md-checkbox>
 
-<!--</md-content>-->
-<!--</div>-->
 
-<div id="regions_div" style="width: 900px; height: 500px;"></div>
+        <md-checkbox ng-model="showDarkTheme">2016</md-checkbox>
+
+              </span>
+            </md-card-title-text>
+          </md-card-title>
+        </md-card>
+
+      </div>
+    </md-content>
+</div>
+
+<!--<div id="regions_div" style="width: 900px; height: 500px;"></div>-->
 
 
 <!-- Librerias Terceros -->
