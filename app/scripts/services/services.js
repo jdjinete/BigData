@@ -8,7 +8,8 @@
       function ($firebaseArray, $q) {
         return {
           all: all,
-          filtroPorAnio: filtroPorAnio
+          filtroPorAnio: filtroPorAnio,
+          filtroAllAnio: filtroAllAnio
         };
 
         function all() {
@@ -23,6 +24,16 @@
           var deferred = $q.defer();
           var ref = firebase.database().ref();
           var messagesRef = ref.child("importaciones/").limitToFirst(500);
+          var query = messagesRef.orderByChild("Ano").equalTo(anio);
+          deferred.resolve($firebaseArray(query).$loaded());
+          return deferred.promise;
+        }
+
+        function filtroAllAnio(anio) {
+          // filtrar
+          var deferred = $q.defer();
+          var ref = firebase.database().ref();
+          var messagesRef = ref.child("importaciones/")
           var query = messagesRef.orderByChild("Ano").equalTo(anio);
           deferred.resolve($firebaseArray(query).$loaded());
           return deferred.promise;

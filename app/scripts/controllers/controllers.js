@@ -9,6 +9,12 @@
       $scope.data.cb2 = {mostrar: false, anio: 2014, id: "mapa-2"};
       $scope.data.cb3 = {mostrar: false, anio: 2015, id: "mapa-3"};
 
+      $scope.tipo = {};
+      $scope.tipo.uno = {mostrar: false, tipo: "Mapa", id: "mapa"};
+      $scope.tipo.dos = {mostrar: true, tipo: "Dona", id: "dona"};
+      $scope.tipo.tres = {mostrar: false, tipo: "def", id: "def"};
+
+
       /**
        * Activa el primer Mapa
        */
@@ -19,6 +25,72 @@
           });
       }
 
+      var uno;
+      var dos;
+      var tres;
+      var datos = [];
+      datos.push(['Año', 'Cantidad por Año']);
+      motosService.filtroAllAnio(2013)
+        .then((data) => {
+          debugger
+          uno = data;
+          datos.push(['2013', uno.length]);
+          motosService.filtroAllAnio(2014)
+            .then((data1) => {
+              debugger
+              dos = data1;
+              datos.push(['2014', dos.length]);
+              motosService.filtroAllAnio(2015)
+                .then((data3) => {
+                  debugger
+                  tres = data3;
+                  datos.push(['2015', tres.length]);
+                  console.log(uno.length + ", " + dos.length + ", " + tres.length)
+                  console.log(datos);
+                  crearGraficaDona(datos, $scope.tipo.dos.id)
+                });
+            });
+        });
+
+      $scope.cambiarTipoGrafica = function (tipo) {
+
+        if (tipo === 'mapa') {
+          $scope.tipo.dos.mostrar = false;
+          $scope.tipo.tres.mostrar = false;
+        } else if (tipo === 'dona') {
+          $scope.tipo.uno.mostrar = false;
+          $scope.tipo.tres.mostrar = false;
+        } else {
+          $scope.tipo.uno.mostrar = false;
+          $scope.tipo.dos.mostrar = false;
+        }
+
+      };
+
+
+      function crearGraficaDona(datos, id) {
+        google.charts.load("current", {packages: ["corechart"]});
+        google.charts.setOnLoadCallback(drawChart);
+        function drawChart() {
+          // var data = google.visualization.arrayToDataTable([
+          //   ['Task', 'Hours per Day'],
+          //   ['2013', 500],
+          //   ['2014', 500],
+          //   ['2015', 500]
+          // ]);
+
+          var data = google.visualization.arrayToDataTable(datos);
+
+          var options = {
+            title: 'Porcentaje de Importaciones',
+            pieHole: 0.4,
+          };
+
+          var chart = new google.visualization.PieChart(document.getElementById(id));
+          chart.draw(data, options);
+        }
+
+      }
 
       /**
        * Metodo que crea las graficas
