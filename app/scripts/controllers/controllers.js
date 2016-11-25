@@ -9,6 +9,9 @@
       $scope.data.cb2 = {mostrar: false, anio: 2014, id: "mapa-2"};
       $scope.data.cb3 = {mostrar: false, anio: 2015, id: "mapa-3"};
 
+      /**
+       * Activa el primer Mapa
+       */
       if ($scope.data.cb1.mostrar) {
         motosService.filtroPorAnio($scope.data.cb1.anio)
           .then((data) => {
@@ -17,6 +20,11 @@
       }
 
 
+      /**
+       * Metodo que crea las graficas
+       * @param data
+       * @param id
+       */
       function unificarDatos(data, id) {
 
         let datosMapa = [];
@@ -51,11 +59,21 @@
         }
       }
 
+      /**
+       * Metodo que cambia la letra como capital
+       * @param string
+       * @returns {string}
+       */
       function primeraMayuscula(string) {
         return string.charAt(0).toUpperCase() + string.slice(1);
       }
 
-
+      /**
+       * Metodo que muestra los mapas por año
+       * @param id
+       * @param item
+       * @param anio
+       */
       $scope.activarMapa = function (id, item, anio) {
         console.log(item);
         var miId = id;
