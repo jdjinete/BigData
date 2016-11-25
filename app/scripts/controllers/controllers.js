@@ -56,7 +56,7 @@
       }
 
 
-      $scope.exists = function (id, item, anio) {
+      $scope.activarMapa = function (id, item, anio) {
         console.log(item);
         var miId = id;
         motosService.filtroPorAnio(anio)
