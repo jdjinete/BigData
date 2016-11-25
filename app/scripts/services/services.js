@@ -22,7 +22,7 @@
           // filtrar
           var deferred = $q.defer();
           var ref = firebase.database().ref();
-          var messagesRef = ref.child("importaciones/").limitToFirst(100);
+          var messagesRef = ref.child("importaciones/").limitToFirst(500);
           var query = messagesRef.orderByChild("Ano").equalTo(anio);
           deferred.resolve($firebaseArray(query).$loaded());
           return deferred.promise;

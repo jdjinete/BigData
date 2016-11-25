@@ -4,22 +4,23 @@
   angular.module('big.controllers', [])
     .controller('testCtrl', ['$scope', 'motosService', function ($scope, motosService) {
 
-      $scope.anios = [{nombre: 2014, valor: 2014}, {nombre: 2015, valor: 2015}, {nombre: 2016, valor: 2016}];
+      $scope.data = {};
+      $scope.data.cb1 = {mostrar: true, anio: 2013, id: "mapa-1"};
+      $scope.data.cb2 = {mostrar: false, anio: 2014, id: "mapa-2"};
+      $scope.data.cb3 = {mostrar: false, anio: 2015, id: "mapa-3"};
 
-      $scope.cambiarAnio = function actualizaAnio(anio) {
-
+      if ($scope.data.cb1.mostrar) {
+        motosService.filtroPorAnio($scope.data.cb1.anio)
+          .then((data) => {
+            unificarDatos(data, $scope.data.cb1.id)
+          });
       }
-      motosService.filtroPorAnio(2015)
-        .then((data) => {
-          unificarDatos(data)
-        });
 
-      var temp = [];
 
-      function unificarDatos(data) {
+      function unificarDatos(data, id) {
 
         let datosMapa = [];
-
+        var temp = [];
 
         data.forEach(function (item) {
           var pais = primeraMayuscula((item.Paisdeorigen).toLowerCase());
@@ -45,7 +46,7 @@
           console.log(temp);
           var data = google.visualization.arrayToDataTable(temp);
           var options = {};
-          var chart = new google.visualization.GeoChart(document.getElementById('regions_div'));
+          var chart = new google.visualization.GeoChart(document.getElementById(id));
           chart.draw(data, options);
         }
       }
@@ -53,6 +54,16 @@
       function primeraMayuscula(string) {
         return string.charAt(0).toUpperCase() + string.slice(1);
       }
+
+
+      $scope.exists = function (id, item, anio) {
+        console.log(item);
+        var miId = id;
+        motosService.filtroPorAnio(anio)
+          .then((data) => {
+            unificarDatos(data, miId)
+          });
+      };
 
     }])
 })();

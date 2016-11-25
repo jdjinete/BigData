@@ -20,6 +20,9 @@
 
   <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
   <script type="text/javascript" src="https://www.google.com/jsapi"></script>
+  <script async defer
+          src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBYXDJw0sJUbou7DmSmTTKHPdykKEaX8FQ"
+          type="text/javascript"></script>
 
 
   <title>Big Data</title>
@@ -52,6 +55,7 @@
   <md-content flex>
     <md-content class="md-padding" layout-xs="column" layout="row">
       <div flex-xs="" flex-gt-xs="10" layout="column"></div>
+
       <div flex-xs="" flex-gt-xs="70" layout="column">
 
         <md-card>
@@ -62,8 +66,38 @@
             </md-card-title-text>
           </md-card-title>
 
-          <div ng-src="{{imagePath}}" id="regions_div" class="md-card-image" style="height: 500px;"
-               style="background-color: #999999;"></div>
+          <div ng-show="data.cb1.mostrar">
+            <md-card-title>
+              <md-card-title-text>
+                <span class="md-headline">Año - {{data.cb1.anio}}</span>
+              </md-card-title-text>
+            </md-card-title>
+            <div ng-src="{{imagePath}}" id="{{data.cb1.id}}" class="md-card-image"
+                 style="height: 500px; background-color: #999999;"
+            ></div>
+          </div>
+
+          <div ng-show="data.cb2.mostrar">
+            <md-card-title>
+              <md-card-title-text>
+                <span class="md-headline">Año - {{data.cb2.anio}}</span>
+              </md-card-title-text>
+            </md-card-title>
+            <div ng-src="{{imagePath}}" id="{{data.cb2.id}}" class="md-card-image"
+                 style="height: 500px; background-color: #999999;"
+            ></div>
+          </div>
+
+          <div ng-show="data.cb3.mostrar">
+            <md-card-title>
+              <md-card-title-text>
+                <span class="md-headline">Año - {{data.cb3.anio}}</span>
+              </md-card-title-text>
+            </md-card-title>
+            <div ng-src="{{imagePath}}" id="{{data.cb3.id}}" class="md-card-image"
+                 style="height: 500px; background-color: #999999;"
+            ></div>
+          </div>
 
         </md-card>
       </div>
@@ -98,22 +132,25 @@
           <md-card-title>
             <md-card-title-text>
 
-              <md-radio-group ng-model="anio">
-
-                <md-radio-button value="2014" class="md-primary">2014</md-radio-button>
-                <md-radio-button value="2015"> 2015</md-radio-button>
-                <md-radio-button value="2016">2016</md-radio-button>
-
-              </md-radio-group>
-
-              {{anio}}
+              <md-checkbox ng-model="data.cb1.mostrar"
+                           ng-click="exists(data.cb1.id, data.cb1.mostrar, data.cb1.anio)">
+                {{ data.cb1.anio }}
+              </md-checkbox>
+              <md-checkbox ng-model="data.cb2.mostrar"
+                           ng-click="exists(data.cb2.id, data.cb2.mostrar, data.cb2.anio)">
+                {{ data.cb2.anio }}
+              </md-checkbox>
+              <md-checkbox ng-model="data.cb3.mostrar"
+                           ng-click="exists(data.cb3.id, data.cb3.mostrar, data.cb3.anio)">
+                {{ data.cb3.anio }}
+              </md-checkbox>
 
             </md-card-title-text>
           </md-card-title>
         </md-card>
 
-
       </div>
+      {{anio}}
 
     </md-content>
 </div>
