@@ -13,6 +13,7 @@
       $scope.tipo.uno = {mostrar: true, tipo: "Mapa", id: "mapa"};
       $scope.tipo.dos = {mostrar: false, tipo: "Dona", id: "dona"};
       $scope.tipo.tres = {mostrar: false, tipo: "Depto", id: "depto"};
+      $scope.tipo.cuatro = {mostrar: false, tipo: "Tend", id: "tend"};
 
 
       /**
@@ -30,27 +31,25 @@
       var tres;
       var datos = [];
       datos.push(['Año', 'Cantidad por Año']);
-      motosService.filtroAllAnio(2013, 900)
+      motosService.filtroAllAnio(2013, 458)
         .then((data) => {
           uno = data;
           datos.push(['2013', uno.length]);
-          motosService.filtroAllAnio(2014, 1249)
+          motosService.filtroAllAnio(2014, 895)
             .then((data1) => {
               dos = data1;
               datos.push(['2014', dos.length]);
-              motosService.filtroAllAnio(2015, 1758)
+              motosService.filtroAllAnio(2015, 1254)
                 .then((data3) => {
                   tres = data3;
                   datos.push(['2015', tres.length]);
-                  console.log(uno.length + ", " + dos.length + ", " + tres.length);
-                  console.log(datos);
-                  crearGraficaDona(datos, $scope.tipo.dos.id)
+                  crearGraficaDona(datos, $scope.tipo.dos.id);
+                  crearGraficaTendencia(datos, $scope.tipo.cuatro.id);
                 });
             });
         });
 
       $scope.cambiarTipoGrafica = function (tipo) {
-        debugger
         if (tipo === 'mapa') {
           $scope.tipo.dos.mostrar = false;
           $scope.tipo.tres.mostrar = false;
@@ -71,6 +70,11 @@
         });
 
 
+      /**
+       * Metodo que crea la grafica por Departamentos
+       * @param data
+       * @param id
+       */
       function crearGraficaDepartamento(data, id) {
         let datosMapa = [];
         var temp = [];
@@ -110,7 +114,11 @@
         };
       }
 
-
+      /**
+       * Metodo que crea la grafica de Tipo Dona
+       * @param datos
+       * @param id
+       */
       function crearGraficaDona(datos, id) {
         google.charts.load("current", {packages: ["corechart"]});
         google.charts.setOnLoadCallback(drawChart);
@@ -130,6 +138,39 @@
         }
 
       }
+
+      /**
+       * Metodo encargado de crear la grafica de tendencia
+       * @param datos
+       * @param id
+       */
+      function crearGraficaTendencia(datos, id) {
+        google.charts.load("current", {packages: ["corechart"]});
+        google.charts.setOnLoadCallback(drawChart);
+        function drawChart() {
+          datos.shift();
+          var temp = [];
+          temp.push(['Año', 'No. Importaciones']);
+          datos.forEach((anio) => {
+            temp.push(anio);
+          });
+
+          console.log(temp);
+
+          var data = google.visualization.arrayToDataTable(temp);
+
+          var options = {
+            title: 'Tendencia de Importaciones',
+            'height': 500,
+            'width': 969
+          };
+
+          var chart = new google.visualization.LineChart(document.getElementById(id));
+          chart.draw(data, options);
+        }
+
+      }
+
 
       /**
        * Metodo que crea las graficas

@@ -130,6 +130,21 @@
         </md-card>
       </div>
 
+      <div flex-xs="" flex-gt-xs="70" layout="column" ng-show="tipo.cuatro.mostrar">
+        <md-card>
+          <md-card-title>
+            <md-card-title-text>
+              <span class="md-headline">Tendencia de Importaciones </span>
+              <span class="md-headline">Por Años</span>
+            </md-card-title-text>
+          </md-card-title>
+
+          <div ng-src="{{imagePath}}" id="{{tipo.cuatro.id}}" class="md-card-image"
+               style="height: 500px; background-color: #999999;"
+          ></div>
+
+        </md-card>
+      </div>
 
       <div flex-xs="" flex-gt-xs="15" layout="column">
 
@@ -158,6 +173,11 @@
                 <md-checkbox ng-model="tipo.tres.mostrar"
                              ng-click="cambiarTipoGrafica(tipo.tres.id)">
                   {{ tipo.tres.tipo }}
+                </md-checkbox>
+
+                <md-checkbox ng-model="tipo.cuatro.mostrar"
+                             ng-click="cambiarTipoGrafica(tipo.cuatro.id)">
+                  {{ tipo.cuatro.tipo }}
                 </md-checkbox>
 
               </md-radio-group>
@@ -215,9 +235,9 @@
 <!-- build:js js/scripts.min.js -->
 <!-- inject:js -->
 <script src="scripts/app.js"></script>
-<script src="scripts/filters/filters.js"></script>
 <script src="scripts/controllers/controllers.js"></script>
 <script src="scripts/services/services.js"></script>
+<script src="scripts/filters/filters.js"></script>
 <!-- endinject -->
 <!-- endbuild -->
 
