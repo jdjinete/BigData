@@ -32,9 +32,6 @@
 
 <body ng-controller="testCtrl">
 
-{{(datosImpo).length}}
-
-
 <div layout="column" layout-fill>
   <md-toolbar>
     <div class="md-toolbar-tools">
@@ -117,6 +114,22 @@
         </md-card>
       </div>
 
+      <div flex-xs="" flex-gt-xs="70" layout="column" ng-show="tipo.tres.mostrar">
+        <md-card>
+          <md-card-title>
+            <md-card-title-text>
+              <span class="md-headline">Puertos de Ingreso</span>
+              <span class="md-headline">Departamentos</span>
+            </md-card-title-text>
+          </md-card-title>
+
+          <div ng-src="{{imagePath}}" id="{{tipo.tres.id}}" class="md-card-image"
+               style="height: 500px; background-color: #999999;"
+          ></div>
+
+        </md-card>
+      </div>
+
 
       <div flex-xs="" flex-gt-xs="15" layout="column">
 
@@ -133,17 +146,17 @@
               <md-radio-group ng-model="data.item">
 
                 <md-checkbox ng-model="tipo.uno.mostrar"
-                             ng-click="cambiarTipoGrafica(tipo.uno.tipo)">
+                             ng-click="cambiarTipoGrafica(tipo.uno.id)">
                   {{ tipo.uno.tipo }}
                 </md-checkbox>
 
                 <md-checkbox ng-model="tipo.dos.mostrar"
-                             ng-click="cambiarTipoGrafica(tipo.dos.tipo)">
+                             ng-click="cambiarTipoGrafica(tipo.dos.id)">
                   {{ tipo.dos.tipo }}
                 </md-checkbox>
 
                 <md-checkbox ng-model="tipo.tres.mostrar"
-                             ng-click="cambiarTipoGrafica(tipo.tres.tipo)">
+                             ng-click="cambiarTipoGrafica(tipo.tres.id)">
                   {{ tipo.tres.tipo }}
                 </md-checkbox>
 
@@ -202,8 +215,8 @@
 <!-- build:js js/scripts.min.js -->
 <!-- inject:js -->
 <script src="scripts/app.js"></script>
-<script src="scripts/controllers/controllers.js"></script>
 <script src="scripts/filters/filters.js"></script>
+<script src="scripts/controllers/controllers.js"></script>
 <script src="scripts/services/services.js"></script>
 <!-- endinject -->
 <!-- endbuild -->

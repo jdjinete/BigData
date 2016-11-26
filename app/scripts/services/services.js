@@ -9,7 +9,8 @@
         return {
           all: all,
           filtroPorAnio: filtroPorAnio,
-          filtroAllAnio: filtroAllAnio
+          filtroAllAnio: filtroAllAnio,
+          filtroDepartamentos: filtroDepartamentos
         };
 
         function all() {
@@ -29,13 +30,24 @@
           return deferred.promise;
         }
 
-        function filtroAllAnio(anio) {
+        function filtroAllAnio(anio, cant) {
           // filtrar
           var deferred = $q.defer();
           var ref = firebase.database().ref();
-          var messagesRef = ref.child("importaciones/")
+          var messagesRef = ref.child("importaciones/").limitToFirst(cant);
           var query = messagesRef.orderByChild("Ano").equalTo(anio);
           deferred.resolve($firebaseArray(query).$loaded());
+          return deferred.promise;
+        }
+
+        function filtroDepartamentos() {
+          // filtrar
+          var deferred = $q.defer();
+          var ref = firebase.database().ref();
+          var messagesRef = ref.child("importaciones/").limitToFirst(800);
+          // var query = messagesRef.orderByChild("Ano").equalTo(anio);
+          deferred.resolve($firebaseArray(messagesRef).$loaded());
+          // deferred.resolve($firebaseArray(query).$loaded());
           return deferred.promise;
         }
 
