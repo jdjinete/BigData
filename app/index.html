@@ -72,6 +72,19 @@
             <div ng-src="{{imagePath}}" id="{{data.cb1.id}}" class="md-card-image"
                  style="height: 500px; background-color: #999999;"
             ></div>
+
+
+            <md-card-title>
+              <md-card-title-text>
+                <span class="md-headline">Exportaciones Bicicletas</span>
+                <span class="md-headline">Año - {{data.cb4.anio}}</span>
+              </md-card-title-text>
+            </md-card-title>
+            <div ng-src="{{imagePath}}" id="{{data.cb4.id}}" class="md-card-image"
+                 style="height: 500px; background-color: #999999;"
+            ></div>
+
+
           </div>
 
           <div ng-show="data.cb2.mostrar">
@@ -146,6 +159,23 @@
         </md-card>
       </div>
 
+      <div flex-xs="" flex-gt-xs="70" layout="column" ng-show="tipo.cinco.mostrar">
+        <md-card>
+          <md-card-title>
+            <md-card-title-text>
+              <span class="md-headline">Tendencia de Importaciones </span>
+              <span class="md-headline">Por Años</span>
+            </md-card-title-text>
+          </md-card-title>
+
+          <div ng-src="{{imagePath}}" id="{{tipo.cinco.id}}" class="md-card-image"
+               style="height: 500px; background-color: #999999;"
+          ></div>
+
+        </md-card>
+      </div>
+
+
       <div flex-xs="" flex-gt-xs="15" layout="column">
 
         <md-card>
@@ -186,7 +216,7 @@
           </md-card-title>
         </md-card>
 
-        <md-card>
+        <md-card ng-show="tipo.uno.mostrar">
           <md-card-header style="background-color: rgb(16,108,200); color: whitesmoke">
             <span class="md-headline">Año</span>
           </md-card-header>
@@ -211,7 +241,7 @@
         </md-card>
 
       </div>
-      {{anio}}
+
 
     </md-content>
 </div>
@@ -236,8 +266,8 @@
 <!-- inject:js -->
 <script src="scripts/app.js"></script>
 <script src="scripts/controllers/controllers.js"></script>
-<script src="scripts/services/services.js"></script>
 <script src="scripts/filters/filters.js"></script>
+<script src="scripts/services/services.js"></script>
 <!-- endinject -->
 <!-- endbuild -->
 

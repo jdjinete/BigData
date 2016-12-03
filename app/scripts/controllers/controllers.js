@@ -8,12 +8,21 @@
       $scope.data.cb1 = {mostrar: true, anio: 2013, id: "mapa-1"};
       $scope.data.cb2 = {mostrar: false, anio: 2014, id: "mapa-2"};
       $scope.data.cb3 = {mostrar: false, anio: 2015, id: "mapa-3"};
+      $scope.data.cb4 = {mostrar: true, anio: 2013, id: "mapa-4"};
+      $scope.data.cb5 = {mostrar: false, anio: 2014, id: "mapa-5"};
+      $scope.data.cb6 = {mostrar: false, anio: 2015, id: "mapa-6"};
 
       $scope.tipo = {};
       $scope.tipo.uno = {mostrar: true, tipo: "Mapa", id: "mapa"};
       $scope.tipo.dos = {mostrar: false, tipo: "Dona", id: "dona"};
       $scope.tipo.tres = {mostrar: false, tipo: "Depto", id: "depto"};
       $scope.tipo.cuatro = {mostrar: false, tipo: "Tend", id: "tend"};
+
+      $scope.imp = {};
+      $scope.imp.uno = {mostrar: true, tipo: "Mapa", id: "mapa-bici"};
+      $scope.imp.dos = {mostrar: false, tipo: "Dona", id: "dona-bici"};
+      $scope.imp.tres = {mostrar: false, tipo: "Depto", id: "depto-bici"};
+      $scope.imp.cuatro = {mostrar: false, tipo: "Tend", id: "tend-bici"};
 
 
       /**
@@ -22,9 +31,12 @@
       if ($scope.data.cb1.mostrar) {
         motosService.filtroPorAnio($scope.data.cb1.anio)
           .then((data) => {
+            console.log(data)
             unificarDatos(data, $scope.data.cb1.id);
+
           });
       }
+
 
       var uno;
       var dos;
@@ -53,12 +65,19 @@
         if (tipo === 'mapa') {
           $scope.tipo.dos.mostrar = false;
           $scope.tipo.tres.mostrar = false;
+          $scope.tipo.cuatro.mostrar = false;
         } else if (tipo === 'dona') {
           $scope.tipo.uno.mostrar = false;
           $scope.tipo.tres.mostrar = false;
+          $scope.tipo.cuatro.mostrar = false;
+        } else if (tipo === 'depto') {
+          $scope.tipo.uno.mostrar = false;
+          $scope.tipo.dos.mostrar = false;
+          $scope.tipo.cuatro.mostrar = false;
         } else {
           $scope.tipo.uno.mostrar = false;
           $scope.tipo.dos.mostrar = false;
+          $scope.tipo.tres.mostrar = false;
         }
 
       };
@@ -106,7 +125,7 @@
             'region': 'CO',
             'resolution': 'provinces',
             'height': 500,
-            'width': 969
+            'width': 906
           };
 
           var chart = new google.visualization.GeoChart(document.getElementById(id));
@@ -130,7 +149,7 @@
             title: 'Porcentaje de Importaciones',
             pieHole: 0.4,
             'height': 500,
-            'width': 969
+            'width': 906
           };
 
           var chart = new google.visualization.PieChart(document.getElementById(id));
@@ -162,7 +181,7 @@
           var options = {
             title: 'Tendencia de Importaciones',
             'height': 500,
-            'width': 969
+            'width': 906
           };
 
           var chart = new google.visualization.LineChart(document.getElementById(id));
@@ -203,7 +222,7 @@
 
         function drawRegionsMap() {
           var data = google.visualization.arrayToDataTable(temp);
-          var options = {'height': 500, 'width': 969};
+          var options = {'height': 500, 'width': 906};
           var chart = new google.visualization.GeoChart(document.getElementById(id));
           chart.draw(data, options);
         }
